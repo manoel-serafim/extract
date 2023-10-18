@@ -8,12 +8,13 @@
     "debug-pages": "(Application-Trace|Routing Error|DEBUG\"? ?[=:] ?True|Caused by:|stack trace:|Microsoft .NET Framework|Traceback|[0-9]:in `|#!/us|WebApplicationException|java\\.lang\\.|phpinfo|swaggerUi|on line [0-9]|SQLSTATE)",
     "http-auth":"[a-z0-9_/\\.:-]+@[a-z0-9-]+\\.[a-z0-9.-]+",
     "json-sec":"(\\\\?\"|&quot;|%22)[a-z0-9_-]*(api[_-]?key|S3|aws_|secret|passw|auth)[a-z0-9_-]*(\\\\?\"|&quot;|%22): ?(\\\\?\"|&quot;|%22)[^\"&]+(\\\\?\"|&quot;|%22)",
-    "meg-headers":"^\u003c [a-z0-9_\\-]+: .*",
+    "meg-headers":"^< [a-z0-9_\\-]+: .*",
     "php-sinks":"[^a-z0-9_](system|exec|popen|pcntl_exec|eval|create_function|unserialize|file_exists|md5_file|filemtime|filesize|assert) ?\\(",
     "s3-buckets": "[a-z0-9.-]+\\.s3\\.amazonaws\\.com|[a-z0-9.-]+\\.s3-[a-z0-9-]\\.amazonaws\\.com|[a-z0-9.-]+\\.s3-website[.-](eu|ap|us|ca|sa|cn)|//s3\\.amazonaws\\.com/[a-z0-9._-]+|//s3-[a-z0-9-]+\\.amazonaws\\.com/[a-z0-9._-]+",
     "secrets": "(aws_access|aws_secret|api[_-]?key|ListBucketResult|S3_ACCESS_KEY|Authorization:|RSA PRIVATE|Index of|aws_|secret|ssh-rsa AA)",
-    "urls":"https?://[^\"\\'> ]+"
-
+    "urls":"https?://[^\"\\'> ]+",
+    "dom-xss-sources": "document\.URL|document\.documentURI|document\.URLUnencoded|document\.baseURI|location|document\.cookie|document\.referrer|window\.name|history\.pushState|history\.replaceState|localStorage|sessionStorage|IndexedDB|Database",
+    "dom-xss-sinks":"document\.write|window\.location|document\.cookie|eval|document\.domain|WebSocket|[a-zA-Z]+\.src|postMessage|setRequestHeader|FileReader\.readAsText|ExecuteSql|sessionStorage\.setItem|document\.evaluate|JSON\.parse|[a-zA-Z]+\.setAttribute|RegExp"
     
 
 
