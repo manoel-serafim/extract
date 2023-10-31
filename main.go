@@ -3,7 +3,6 @@ package main
 import (
 	"flag"
 	"fmt"
-	"io/ioutil"
 	"os"
 	"os/exec"
 	"sync"
@@ -44,7 +43,7 @@ var patterns = map[string]string{
 	"dom-xss-sources": "document\\.URL|document\\.documentURI|document\\.URLUnencoded|document\\.baseURI|location|document\\.cookie|document\\.referrer|window\\.name|history\\.pushState|history\\.replaceState|localStorage|sessionStorage|IndexedDB|Database",
 	"dom-xss-sinks":   "document\\.write|window\\.location|document\\.cookie|eval|document\\.domain|WebSocket|[a-zA-Z]+\\.src|postMessage|setRequestHeader|FileReader\\.readAsText|ExecuteSql|sessionStorage\\.setItem|document\\.evaluate|JSON\\.parse|[a-zA-Z]+\\.setAttribute|RegExp",
 	"user-content":    "https?://[^\\s]+\\.(?:pdf|exe|csv|docx|jpg|png|mp3|mp4|zip|txt|html|ppt|xls|xlsx|pptx|odt|ods|odp|rtf|wav|avi|flv|mov|mpg)",
-	"dev-content":     "\\w+:\\/\\/[^\\s]*\\.(js|c|go|java|cpp|h|hpp|cs|py|php|rb|pl|swift|scala|groovy|ts|css|html|xml|json|yaml|yml|ini|sql|asm|sh|bash|ps1|bat|perl|r|lua|coffee|dart|kotlin|md|markdown|rmd|rst|tex|csharp|ts|scss|less|sass)",
+	"source":          "\\w+:\\/\\/[^\\s]*\\.(js|c|go|java|cpp|h|hpp|cs|py|php|rb|pl|swift|scala|groovy|ts|css|html|xml|json|yaml|yml|ini|sql|asm|sh|bash|ps1|bat|perl|r|lua|coffee|dart|kotlin|md|markdown|rmd|rst|tex|csharp|ts|scss|less|sass)",
 }
 
 func init() {
@@ -125,8 +124,8 @@ func grepPattern(name, pattern string, wg *sync.WaitGroup) {
 	}
 
 	if len(output) > 0 {
-		outputFileName := fmt.Sprintf("%s/%s", outputFolder, name)
-		err := ioutil.WriteFile(outputFileName, output, os.ModePerm)
+		outputFileName := fmt.Sprintf("%s/%s.txt", outputFolder, name)
+		err := os.WriteFile(outputFileName, output, os.ModePerm)
 		if err != nil {
 			printColor(redColor, "Error writing output for pattern %s: %v\n", name, err)
 			return
